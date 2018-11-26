@@ -1,0 +1,42 @@
+{
+  "name": "final-stamp",
+  "version": "1.0.0",
+  "description": "",
+  "types": "pixi-sound.d.ts",
+  "scripts": {
+    "build": "gulp launch-web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buddalee/art-stamp-final.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/buddalee/art-stamp-final/issues"
+  },
+  "dependencies": {
+    "gsap": "^2.0.2",
+    "howler": "^2.0.15",
+    "jquery": "^3.3.1",
+    "pixi.js": "^4.8.2",
+    "systemjs": "^0.21.4"
+  },
+  "homepage": "https://github.com/buddalee/art-stamp-final#readme",
+  "devDependencies": {
+    "@types/gsap": "^1.19.2",
+    "@types/howler": "^2.0.5",
+    "@types/jquery": "^3.3.9",
+    "@types/pixi.js": "^4.8.0",
+    "@types/systemjs": "^0.20.6",
+    "browser-sync": "^2.24.7",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-typescript": "^5.0.0-alpha.3",
+    "install": "^0.12.1",
+    "npm": "^6.4.1",
+    "run-sequence": "^2.2.1",
+    "typescript": "^3.0.3"
+  }
+}
