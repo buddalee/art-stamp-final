@@ -12,8 +12,7 @@ import { Clock } from "./Clock";
 import { GameRoundEnd } from "./GameRoundEnd";
 import { Character } from "./Character";
 import { TimerMask } from './TimerMask';
-import { Timer } from './Timer';
-
+import { StampGameBoard } from './StampGameBoard';
 export class GameScene {
     
     public static draw(){
@@ -24,12 +23,9 @@ export class GameScene {
         handleBackground.y = 0;
         application.stage.addChild(handleBackground);
         application.stage.addChild(new TimerMask());
-        // const timer = PIXI.Sprite.from(Loader.resources["timer_bg"].texture);
-        // timer.x = 483;
-        // timer.y = 349;
-        // application.stage.addChild(timer);
-        // application.stage.addChild(new Timer());
-        
+
+        // 加入印章牌面
+        application.stage.addChild(new StampGameBoard());
         //加入連連看牌面
         // application.stage.addChild(new GameBoard());
         // application.stage.addChild(LinkedLine.instance);

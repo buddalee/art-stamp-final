@@ -5,10 +5,7 @@ import { canvasWidth, canvasHeight, canvasScale } from '../Main';
 
 export class IntroduceBtn extends ButtonBase {
     // private isMute: boolean = false;
-    constructor() {
-      console.log('canvasWidth: ', canvasWidth);
-      console.log('canvasHeight: ', canvasHeight);
-      
+    constructor() {      
         super(
           'Introduce_Button',
           'introduce_btn',
@@ -17,7 +14,6 @@ export class IntroduceBtn extends ButtonBase {
         // this.updateImage();
         
     }
-
     public trigger(){
         // this.isMute = !this.isMute;
         // SoundMgr.mute(this.isMute);

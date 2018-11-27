@@ -8,16 +8,12 @@ import { GameFlowEvent } from "../core/Event";
 export class StartGameBtn extends ButtonBase {
     // private isMute: boolean = false;
     constructor() {
-      console.log('canvasWidth: ', canvasWidth);
-      console.log('canvasHeight: ', canvasHeight);
-      
         super(
           'StartGame_Button',
           'start_game_btn',
           (canvasWidth - ((50 + 130) / canvasScale)), (canvasHeight - ((50 + 300) / canvasScale) )
         );
         // this.updateImage();
-        
     }
 
     public trigger(){

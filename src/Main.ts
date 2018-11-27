@@ -27,7 +27,6 @@ export class Main {
         eventEmitter = new EventEmitter();
         SoundMgr.load();
         eventEmitter.on(CoreEvent.AssetsLoadComplete,()=>{
-            console.log('!!!!!');
             //隱藏loading page
             jQuery("#loadingPage").hide();
             //播放背景音樂
@@ -35,7 +34,6 @@ export class Main {
             //繪製主選單場景
             MainMenuScene.draw();
             eventEmitter.on(GameFlowEvent.RenderGameScene, ()=>{
-                console.log('我有按了喔！！！');
                 application.stage.removeChildren();
                 //繪製場景
                 GameScene.draw();
@@ -55,7 +53,6 @@ export class Main {
         var h = window.innerHeight; 
         var scale = Math.min(w/1440,h/899);
         canvasScale = scale; 
-        console.log('canvasScale: ', canvasScale);
         application.view.style.left = (w-scale*1440)/2 + "px"; 
         application.view.style.top = (h-scale*899)/2 + "px"; 
         canvasWidth =1440 ;     

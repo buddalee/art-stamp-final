@@ -8,10 +8,6 @@ export class ButtonBase extends Sprite{
 
     constructor(_id:string, textureID:string, _x:number, _y:number) {
         super();
-        // console.log('_id: ', _id);
-        
-        // console.log('textureID: ', textureID);
-        // console.log('!!!', Loader.resources[_id]);
         if (textureID === 'introduce_btn') {
             this.texture = PIXI.Sprite.fromImage("assets/introduce_btn.png").texture;
         } else if (textureID === 'start_game_btn') {
@@ -19,13 +15,10 @@ export class ButtonBase extends Sprite{
         } else {
           this.texture = Loader.resources[_id].textures[textureID];  
         }
-        // console.log('this: ', this);
         this.interactive = true;
         this.buttonMode = true;
         this.x = _x;
-        console.log('this.x: ', this.x);
         this.y = _y;
-        console.log('this.y: ', this.y);        
         this.anchor.set(0.5);
 
         //按下效果

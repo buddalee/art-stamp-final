@@ -5,7 +5,8 @@ import { Loader } from "../core/Loader";
 
 export class TimerMask extends Container {
     private text:PIXI.Text;
-    private remainTimes:number = 5;
+    // private remainTimes:number = 5;
+    private remainTimes:number = 1;
     private remainText:PIXI.Text;
     private clockInterval:any;
     constructor() {
@@ -61,12 +62,13 @@ export class TimerMask extends Container {
       this.remainTimes --;
       if(this.remainTimes == 0){
           clearInterval(this.clockInterval);
+          eventEmitter.emit(GameFlowEvent.CreateNewGameRequest);
           eventEmitter.emit(GameFlowEvent.GameEndWithTimeout);
       }
       this.remainText.text = this.remainTimes.toString();
     }
     public trigger(){
-        eventEmitter.emit(GameFlowEvent.CreateNewGameRequest);
-        this.visible = false;
+        // eventEmitter.emit(GameFlowEvent.CreateNewGameRequest);
+        // this.visible = false;
     }
 }

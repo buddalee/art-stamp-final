@@ -15,7 +15,9 @@ export class ResourcesList{
         new Resources('background','assets/bg-2.png'), 
         
         new Resources('background_main_menu','assets/bg.png'),
-        new Resources('timer_bg','assets/img-number.png'),                                                  
+        new Resources('timer_bg','assets/img-number.png'),
+        new Resources('stamp1_icon','assets/stamp1.png'),                                                  
+        new Resources('stamp2_icon','assets/stamp2.png'),                                                                                                        
         new Resources('Button','assets/Button.json'),
         new Resources('Introduce_Button','assets/introduce_btn.png'),   
         new Resources('StartGame_Button','assets/start_game_btn.png'),                     
