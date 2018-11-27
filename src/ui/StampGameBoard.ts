@@ -9,6 +9,8 @@ import { LinkedLine } from "./LinkedLine";
 import { eventEmitter } from "../Main";
 import { GameFlowEvent } from "../core/Event";
 import { Stamps } from '../core/Stamps';
+import {application} from "../Main";
+import { TimerMask } from './TimerMask';
 
 export let board: Board;
 export let reloadTimes: number = 3;
@@ -27,18 +29,23 @@ export class StampGameBoard extends Container {
   
   constructor() {
     super();
-    // this.createNewGame();
+
+    this.createNewGame();
     this.x = 0;
     this.y = 0;
 
     // eventEmitter.on(GameFlowEvent.ReloadBoardRequest, this.reloadBoard.bind(this));
     // eventEmitter.on(GameFlowEvent.TipsRequest, this.showTips.bind(this));
     // eventEmitter.on(GameFlowEvent.RevertBackRequest, this.revertBoard.bind(this));
-    eventEmitter.on(GameFlowEvent.CreateNewGameRequest, this.createNewGame.bind(this));
+    eventEmitter.on(GameFlowEvent.CreateNewGameRequest, this.createNewAnser.bind(this));
   }
-
   createNewGame = () => {
-    console.log('開始畫圖囉！！！！');
+    this.addChild(PIXI.Sprite.from(Loader.resources["level1"].texture));
+    this.createNewAnser();
+  }
+  createNewAnser = () => {
+    console.log('this: ', this);
+
     // this.select1 = new Point(-1, -1);
     // this.select2 = new Point(-1, -1);
     // this.selected = false;
@@ -56,6 +63,8 @@ export class StampGameBoard extends Container {
     this.drawStamp(this.ansPoint1, 1);
     this.drawStamp(this.ansPoint2, 2);
     // this.drawBoardIcon();
+    this.addChild(new TimerMask());    
+
     eventEmitter.emit(GameFlowEvent.GameRoundStart);
     // this.tipsPath = board.getFirstExistPath();
   };

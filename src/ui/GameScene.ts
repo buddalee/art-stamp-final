@@ -11,18 +11,18 @@ import { Stars } from "./Stars";
 import { Clock } from "./Clock";
 import { GameRoundEnd } from "./GameRoundEnd";
 import { Character } from "./Character";
-import { TimerMask } from './TimerMask';
+// import { TimerMask } from './TimerMask';
 import { StampGameBoard } from './StampGameBoard';
 export class GameScene {
     
     public static draw(){
         //加入背景
-        application.stage.addChild(PIXI.Sprite.from(Loader.resources["level1"].texture));
+        // application.stage.addChild(PIXI.Sprite.from(Loader.resources["level1"].texture));
         const handleBackground = PIXI.Sprite.from(Loader.resources["background"].texture);
         handleBackground.x = 1080;
         handleBackground.y = 0;
         application.stage.addChild(handleBackground);
-        application.stage.addChild(new TimerMask());
+        // application.stage.addChild(new TimerMask());
 
         // 加入印章牌面
         application.stage.addChild(new StampGameBoard());
