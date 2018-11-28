@@ -12,7 +12,12 @@ export class ButtonBase extends Sprite{
             this.texture = PIXI.Sprite.fromImage("assets/introduce_btn.png").texture;
         } else if (textureID === 'start_game_btn') {
             this.texture = PIXI.Sprite.fromImage("assets/start_game_btn.png").texture;
+        } else if (textureID === 'check_ans_btn') {
+            this.texture = PIXI.Sprite.fromImage("assets/btn-normal-m.png").texture;
+        }  else if (textureID === 'next_level_btn') {
+            this.texture = PIXI.Sprite.fromImage("assets/btn-normal-s.png").texture;
         } else {
+            console.log('Loader.resources[_id]: ', Loader.resources);
           this.texture = Loader.resources[_id].textures[textureID];  
         }
         this.interactive = true;

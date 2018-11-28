@@ -7,7 +7,10 @@ export class Stamps {
   private centerPTArr: Array<any>;
   private anserNum1: number;
   private anserNum2: number;
+  public LevelNum: number;
+  
   constructor() {
+    this.LevelNum = 1;
     this.centerPTArr = [];
     let startx = 0,
         starty = 0,

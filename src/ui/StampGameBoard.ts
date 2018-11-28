@@ -6,7 +6,7 @@ import { Path } from "../core/Path";
 import { SoundMgr } from "../core/SoundMgr";
 import { GameIcon } from "./GameIcon";
 import { LinkedLine } from "./LinkedLine";
-import { eventEmitter } from "../Main";
+import { eventEmitter, stamps } from "../Main";
 import { GameFlowEvent } from "../core/Event";
 import { Stamps } from '../core/Stamps';
 import {application} from "../Main";
@@ -14,7 +14,6 @@ import { TimerMask } from './TimerMask';
 
 export let board: Board;
 export let reloadTimes: number = 3;
-export let stamps: Stamps;
 
 export class StampGameBoard extends Container {
 
@@ -29,7 +28,7 @@ export class StampGameBoard extends Container {
   
   constructor() {
     super();
-
+    // stamps = new Stamps();
     this.createNewGame();
     this.x = 0;
     this.y = 0;
@@ -40,7 +39,7 @@ export class StampGameBoard extends Container {
     eventEmitter.on(GameFlowEvent.CreateNewGameRequest, this.createNewAnser.bind(this));
   }
   createNewGame = () => {
-    this.addChild(PIXI.Sprite.from(Loader.resources["level1"].texture));
+    this.addChild(PIXI.Sprite.from(Loader.resources[`level${stamps.LevelNum}`].texture));
     this.createNewAnser();
   }
   createNewAnser = () => {
@@ -56,7 +55,7 @@ export class StampGameBoard extends Container {
     if (location.search === '?dev') {
       this.drawLine();
     }
-    stamps = new Stamps();
+
     const { ansPoint1, ansPoint2 } = stamps.generateAnsPoint()
     this.ansPoint1 = ansPoint1;
     this.ansPoint2 = ansPoint2;

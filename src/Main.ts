@@ -7,13 +7,15 @@ import { SoundMgr } from "./core/SoundMgr";
 import { GameScene } from "./ui/GameScene";
 import { MainMenuScene } from "./ui/MainMenuScene";
 import { GameFlowEvent } from "./core/Event";
+import { PaintingInfoScene } from './ui/PaintingInfoScene';
+import { Stamps } from './core/Stamps';
 
 export let eventEmitter:EventEmitter;
 export let application:Application;
 export let canvasWidth: number;
 export let canvasHeight: number;
 export let canvasScale: number;
-
+export let stamps: Stamps;
 /**
  * 主要的 client application.
  *
@@ -22,10 +24,11 @@ export class Main {
     public initGame() {
         //設定場景
         let gameCanvasContext = (< HTMLCanvasElement >jQuery("#gameCanvas")[0]);
-        application = new PIXI.Application(1440, 899, {backgroundColor : 0xF6D0A3, view: gameCanvasContext});
+        application = new PIXI.Application(1440, 899, {backgroundColor : 0x000000, view: gameCanvasContext});
         //設定共用的事件傳遞元件
         eventEmitter = new EventEmitter();
         SoundMgr.load();
+        stamps = new Stamps();
         eventEmitter.on(CoreEvent.AssetsLoadComplete,()=>{
             //隱藏loading page
             jQuery("#loadingPage").hide();
@@ -37,6 +40,11 @@ export class Main {
                 application.stage.removeChildren();
                 //繪製場景
                 GameScene.draw();
+            });
+            eventEmitter.on(GameFlowEvent.RenderPaintingInfoScene, ()=>{
+                application.stage.removeChildren();
+                //繪製場景
+                PaintingInfoScene.draw();
             });
 
         });

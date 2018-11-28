@@ -48,8 +48,8 @@ export class TimerMask extends Container {
             fontFamily: 'PingFangTC',
             fill: '#fff',
             align: 'center',
-            stroke: '#fff',
-            strokeThickness: 6
+            // stroke: '#fff',
+            // strokeThickness: 6
         });
         this.remainText.x = 521;
         this.remainText.y = 370;

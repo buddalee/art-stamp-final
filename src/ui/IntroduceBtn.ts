@@ -9,7 +9,7 @@ export class IntroduceBtn extends ButtonBase {
         super(
           'Introduce_Button',
           'introduce_btn',
-          (canvasWidth - ((50 + 260) / canvasScale)), (canvasHeight - ((50 + 300)) / canvasScale)
+          1130, 549
         );
         // this.updateImage();
         

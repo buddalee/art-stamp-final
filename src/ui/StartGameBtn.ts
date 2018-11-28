@@ -11,7 +11,7 @@ export class StartGameBtn extends ButtonBase {
         super(
           'StartGame_Button',
           'start_game_btn',
-          (canvasWidth - ((50 + 130) / canvasScale)), (canvasHeight - ((50 + 300) / canvasScale) )
+          1260, 549 
         );
         // this.updateImage();
     }

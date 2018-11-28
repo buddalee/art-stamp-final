@@ -1,5 +1,5 @@
 import {Loader} from "../core/Loader";
-import {application} from "../Main";
+import {application, stamps} from "../Main";
 import {SoundBtn} from "./SoundBtn";
 // import {GameBoard} from "./GameBoard";
 import { LinkedLine } from "./LinkedLine";
@@ -19,39 +19,34 @@ import { SeeAnsBtn } from './SeeAnsBtn';
 
 // import { TimerMask } from './TimerMask';
 import { StampGameBoard } from './StampGameBoard';
-export class GameScene {
+export class PaintingInfoScene {
     
     public static draw(){
         //加入背景
         // application.stage.addChild(PIXI.Sprite.from(Loader.resources["level1"].texture));
+        application.stage.addChild(PIXI.Sprite.from(Loader.resources[`level${stamps.LevelNum}`].texture));
         const handleBackground = PIXI.Sprite.from(Loader.resources["background"].texture);
         handleBackground.x = 1080;
         handleBackground.y = 0;
         application.stage.addChild(handleBackground);
-        // application.stage.addChild(new TimerMask());
 
-        // 加入印章牌面
-        application.stage.addChild(new StampGameBoard());
-        application.stage.addChild(new CheckAnsBtn());
-        const chooseStampHint = new PIXI.Text("請選擇印章總類", {
-            fontSize: 15,
+        const description = new PIXI.Text("內容簡介", {
+            fontSize: 21,
             fontFamily: 'PingFangTC',
-            fill: '#4a4a4a',
+            fill: '#8b572a',
             align: 'center'
         });
-        chooseStampHint.x = 1094;
-        chooseStampHint.y = 146;
-        application.stage.addChild(chooseStampHint);
+        description.x = 1094;
+        description.y = 146;
+        application.stage.addChild(description);
         
         // const painting = PIXI.Sprite.from(Loader.resources["painting_name"].texture);
         // painting.x = 1094;
         // painting.y = 23;
         // application.stage.addChild(painting);
         application.stage.addChild(new PaintingTitle());
-        application.stage.addChild(new ReloadLevelBtn());
-        application.stage.addChild(new SeeAnsBtn());
+        // application.stage.addChild(new SeeAnsBtn());
         
-        application.stage.addChild(new Dialog());
         
         
         // const checkAnsBtn = PIXI.Sprite.from(Loader.resources["btn1"].texture);
@@ -69,7 +64,7 @@ export class GameScene {
         // application.stage.addChild(new RevertBtn());
         // application.stage.addChild(new TipBtn());
         // application.stage.addChild(new ReloadBtn());
-        // application.stage.addChild(new FBBtn());
+        application.stage.addChild(new FBBtn());
         // application.stage.addChild(new Stars());
         // application.stage.addChild(new Clock());
 
