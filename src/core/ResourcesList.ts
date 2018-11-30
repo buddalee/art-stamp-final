@@ -21,6 +21,8 @@ export class ResourcesList{
         new Resources('dialog','assets/img-pop.png'),
         new Resources('next_level_btn','assets/btn-normal-s.png'),
         new Resources('Button','assets/Button.json'),
+        new Resources('mouse_stamp','assets/mouse-stamp.png'),
+        new Resources('mouse_stamp@2x','assets/mouse-stamp@2x.png'),
         
         new Resources('Introduce_Button','assets/introduce_btn.png'),
         new Resources('StartGame_Button','assets/start_game_btn.png'),

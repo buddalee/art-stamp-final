@@ -25,7 +25,7 @@ export class Stamps {
             this.centerPTArr.push({ x, y });
         }
     } 
-    console.log('this.centerPTArr: ', this.centerPTArr);
+    // console.log('this.centerPTArr: ', this.centerPTArr);
     // let content = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
     // //產生初始局面
     // let length = 10;
@@ -42,6 +42,14 @@ export class Stamps {
       this.anserNum2 = Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+  }
+  public isTouchSupported() {
+    if (('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0) ||
+    (navigator.msMaxTouchPoints > 0)) {
+      return true;
+    }
+    return false;
   }
   public generateAnsPoint() {
     this.getRandomInt(1, 16);

@@ -18,5 +18,6 @@ export class GameFlowEvent{
     public static LinkedLineSuccess: string = "LinkedLineSuccess";
     public static RenderGameScene: string = "RenderGameScene";
     public static RenderPaintingInfoScene: string = "RenderPaintingInfoScene";
-    
+    public static chooseStamp1Request: string = "chooseStamp1Request";    
+    public static chooseStamp2Request: string = "chooseStamp2Request";    
 }

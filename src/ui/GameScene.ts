@@ -16,6 +16,8 @@ import { PaintingTitle } from './PaintingTitle';
 import { Dialog } from './Dialog';
 import { ReloadLevelBtn } from './ReloadLevelBtn';
 import { SeeAnsBtn } from './SeeAnsBtn';
+import { ChooseStamp1Btn } from './ChooseStamp1Btn';
+import { ChooseStamp2Btn } from './ChooseStamp2Btn';
 
 // import { TimerMask } from './TimerMask';
 import { StampGameBoard } from './StampGameBoard';
@@ -48,6 +50,9 @@ export class GameScene {
         // painting.y = 23;
         // application.stage.addChild(painting);
         application.stage.addChild(new PaintingTitle());
+        application.stage.addChild(new ChooseStamp1Btn());
+        application.stage.addChild(new ChooseStamp2Btn());
+
         application.stage.addChild(new ReloadLevelBtn());
         application.stage.addChild(new SeeAnsBtn());
         
