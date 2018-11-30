@@ -22,7 +22,32 @@ export class Dialog extends Container {
     dialog.x = 394;
     dialog.y = 250;
     this.addChild(dialog);
-    this.message = '  恭喜你 \n 挑戰成功';
+
+    this.addChild(new NextLevelBtn());
+    this.addChild(new SeePaintingBtn());
+    eventEmitter.on(GameFlowEvent.CheckAnsIsRightResponse, () => {
+      this.handleMessage(1);
+      this.visible = true;
+    });
+    eventEmitter.on(GameFlowEvent.CheckAnsIsWrongResponse, () => {
+      this.handleMessage(2);
+      this.visible = true;
+    });
+  }
+  public trigger() {
+    // eventEmitter.emit(GameFlowEvent.CreateNewGameRequest);
+    // this.visible = false;
+  }
+  handleMessage(type) {
+    if (this.dialogText) {
+      this.removeChild(this.dialogText);
+    }
+    
+    if (type === 1) {
+      this.message = '  恭喜你 \n 挑戰成功';
+    } else {
+      this.message = '  很可惜 \n 挑戰失敗';
+    }
     this.dialogText = new PIXI.Text(this.message, {
       fontSize: 32,
       fontFamily: 'PingFangTC',
@@ -31,15 +56,7 @@ export class Dialog extends Container {
     });
     this.dialogText.x = 585;
     this.dialogText.y = 298;
-
     this.addChild(this.dialogText);
-    this.addChild(new NextLevelBtn());
-    this.addChild(new SeePaintingBtn());
 
-    eventEmitter.on(GameFlowEvent.ShowAnsCorrect, () => this.visible = true);
-  }
-  public trigger() {
-    // eventEmitter.emit(GameFlowEvent.CreateNewGameRequest);
-    // this.visible = false;
   }
 }

@@ -10,7 +10,11 @@ class Resources {
 export class ResourcesList{
     public static img = [
         new Resources('bunny','assets/bunny.png'),
-        new Resources('level1','assets/2.jpg'),
+        new Resources('level1','assets/1.jpg'),
+        new Resources('level2','assets/2.jpg'),
+        new Resources('level3','assets/3.jpg'),
+        new Resources('demo','assets/demo.jpg'),
+        
         new Resources('background','assets/bg-2.png'),
         new Resources('background_main_menu','assets/bg.png'),
         new Resources('timer_bg','assets/img-number.png'),

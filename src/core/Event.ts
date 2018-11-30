@@ -20,4 +20,11 @@ export class GameFlowEvent{
     public static RenderPaintingInfoScene: string = "RenderPaintingInfoScene";
     public static chooseStamp1Request: string = "chooseStamp1Request";    
     public static chooseStamp2Request: string = "chooseStamp2Request";    
+    public static CheckAnsRequest: string = "CheckAnsRequest";    
+    public static CheckAnsIsRightResponse: string = "CheckAnsIsRightResponse";    
+    public static CheckAnsIsWrongResponse: string = "CheckAnsIsWrongResponse";    
+    public static NextLevelRequest: string = "NextLevelRequest";
+    public static SeeAnsRequest: string = "SeeAnsRequest";     
+    public static ReloadGameRequest: string = "ReloadGameRequest";       
+      
 }

@@ -4,16 +4,16 @@ import { SoundMgr } from "../core/SoundMgr";
 import { eventEmitter } from "../Main";
 import { GameFlowEvent } from "../core/Event";
 
-export class NextLevelBtn extends ButtonBase {
+export class ContinueBtn extends ButtonBase {
   
   constructor() {
     super(
-      'next_level_btn',
-      'next_level_btn',
-      585, 435
+      'check_ans_btn',
+      'check_ans_btn',
+      1263, 866
     );
     // this.updateImage();
-    const checkAnsText = new PIXI.Text("下一關", {
+    const checkAnsText = new PIXI.Text("繼續挑戰", {
       fontSize: 21,
       fontFamily: 'PingFangTC',
       fill: '#fff',

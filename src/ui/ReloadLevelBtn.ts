@@ -5,8 +5,6 @@ import { eventEmitter } from "../Main";
 import { GameFlowEvent } from "../core/Event";
 
 export class ReloadLevelBtn extends ButtonBase {
-  private isClicked: boolean = false;
-  private isAnsCorrect: boolean = false;
   
   constructor() {
     super(
@@ -14,7 +12,6 @@ export class ReloadLevelBtn extends ButtonBase {
       'next_level_btn',
       1176, 765
     );
-    // this.updateImage();
     const checkAnsText = new PIXI.Text("重新挑戰", {
       fontSize: 21,
       fontFamily: 'PingFangTC',
@@ -26,20 +23,6 @@ export class ReloadLevelBtn extends ButtonBase {
     this.addChild(checkAnsText);
   }
   public trigger() {
-    // this.handleAnsCorrect();
-    // this.isClicked = !this.isClicked;
-    // this.updateImage();
+    eventEmitter.emit(GameFlowEvent.ReloadGameRequest);
   }
-  // handleAnsCorrect() {
-  //   this.isAnsCorrect = true;
-  //   eventEmitter.emit(GameFlowEvent.ShowAnsCorrect);
-  // }
-  // updateImage = () => {
-  //   if (this.isClicked) {
-  //     this.texture = PIXI.Sprite.fromImage("assets/btn-active-m.png").texture;
-  //   } else {
-  //     this.texture = PIXI.Sprite.fromImage("assets/btn-normal-m.png").texture;
-  //   }
-  // }
-
 }

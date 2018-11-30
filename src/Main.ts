@@ -29,6 +29,7 @@ export class Main {
         eventEmitter = new EventEmitter();
         SoundMgr.load();
         stamps = new Stamps();
+        console.log('!!!!');
         eventEmitter.on(CoreEvent.AssetsLoadComplete,()=>{
             //隱藏loading page
             jQuery("#loadingPage").hide();
@@ -45,6 +46,22 @@ export class Main {
                 application.stage.removeChildren();
                 //繪製場景
                 PaintingInfoScene.draw();
+            });
+            eventEmitter.on(GameFlowEvent.NextLevelRequest, ()=>{
+                application.stage.removeChildren();
+                console.log('!!!!');
+                const param = location.search;
+                if (param.indexOf('level=2') > -1) {
+                    window.history.pushState('', '', '?level=3');
+                  }
+                  if (param.indexOf('level=3') > -1) {
+                    window.history.pushState('', '', '?level=1');
+                  }
+                  if (param.indexOf('level=1') > -1) {
+                    window.history.pushState('', '', '?level=2');
+                  }
+                //繪製場景
+                GameScene.draw();
             });
 
         });

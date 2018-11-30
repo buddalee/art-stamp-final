@@ -1,12 +1,13 @@
 import { ButtonBase } from "./ButtonBase";
-import { SoundMgr } from "../core/SoundMgr";
 
 export class FBBtn extends ButtonBase {
+    private _location: any;
     constructor() {
-        super('Button','FB',1340,765);
+        super('Button', 'FB', 1118, 805);
+        this._location = location;
     }
-    public trigger(){
-        window.open(' https://www.facebook.com/claire0318 ', 'Claire Chang');
-        SoundMgr.play("About");
+    public trigger() {
+        // window.open(`https://www.facebook.com/sharer/sharer.php?u=https://buddalee.github.io/art-stamp/`, 'Budda Lee');
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${this._location.url}`, 'Budda Lee');
     }
 }

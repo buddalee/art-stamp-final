@@ -33,10 +33,15 @@ export class StampGameBoard extends Container {
   private angle: number;
   private stampIcon1: PIXI.Sprite;
   private stampIcon2: PIXI.Sprite;
+  private testCircle1: PIXI.Graphics;
+  private testCircle2: PIXI.Graphics;
+  private testCircle3: PIXI.Graphics;  
+  private userAnsArr = [];  
+  
 
   constructor() {
     super();
-    if (location.search === '?dev') {
+    if (location.search.indexOf('dev') > -1) {
       this.isDevMode = true;
     }
     if (stamps.isTouchSupported()) {
@@ -60,6 +65,9 @@ export class StampGameBoard extends Container {
     eventEmitter.on(GameFlowEvent.CreateNewGameRequest, this.createNewAnser.bind(this));
     eventEmitter.on(GameFlowEvent.GameEndWithTimeout, () => {
       this.interactive = true;
+      this.removeChild(this.stampIcon1);
+      this.removeChild(this.stampIcon2);
+      
     });
     eventEmitter.on(GameFlowEvent.chooseStamp1Request, () => {
       this.chooseStampType = 1;
@@ -67,6 +75,14 @@ export class StampGameBoard extends Container {
     eventEmitter.on(GameFlowEvent.chooseStamp2Request, () => {
       this.chooseStampType = 2;
     });
+    eventEmitter.on(GameFlowEvent.CheckAnsRequest, this.checkAns.bind(this));
+    eventEmitter.on(GameFlowEvent.SeeAnsRequest, () => {
+      this.removeChild(this.stampIcon1);
+      this.removeChild(this.stampIcon2);
+      this.drawStamp(this.ansPoint1, false, 1);
+      this.drawStamp(this.ansPoint2, false, 2);
+    });
+    eventEmitter.on(GameFlowEvent.ReloadGameRequest, this.createNewAnser.bind(this));
   }
   onDragStart = (e) => {
     const eventData = e.data;
@@ -82,37 +98,37 @@ export class StampGameBoard extends Container {
       };
       this.touches.push(touch);
       if (this.touches.length === 1) {
-        const testCircle1 = new PIXI.Graphics();
+        this.testCircle1 = new PIXI.Graphics();
         if (this.isDevMode) {
-          testCircle1.beginFill(0x99ffff);
+          this.testCircle1.beginFill(0x99ffff);
         } else {
-          testCircle1.beginFill(0x99ffff, 0);
+          this.testCircle1.beginFill(0x99ffff, 0);
         }
-        testCircle1.drawCircle(touch.pos.x, touch.pos.y, 10);
-        testCircle1.endFill();
-        this.addChild(testCircle1);
+        this.testCircle1.drawCircle(touch.pos.x, touch.pos.y, 10);
+        this.testCircle1.endFill();
+        this.addChild(this.testCircle1);
       }
       if (this.touches.length === 2) {
-        const testCircle2 = new PIXI.Graphics();
+        this.testCircle2 = new PIXI.Graphics();
         if (this.isDevMode) {
-          testCircle2.beginFill(0x99ffff);
+          this.testCircle2 .beginFill(0x99ffff);
         } else {
-          testCircle2.beginFill(0x99ffff, 0);
+          this.testCircle2 .beginFill(0x99ffff, 0);
         }
-        testCircle2.drawCircle(touch.pos.x, touch.pos.y, 10);
-        testCircle2.endFill();
-        this.addChild(testCircle2);
+        this.testCircle2 .drawCircle(touch.pos.x, touch.pos.y, 10);
+        this.testCircle2 .endFill();
+        this.addChild(this.testCircle2 );
       }
       if (this.touches.length === 3) {
-        const testCircle3 = new PIXI.Graphics();
+        this.testCircle3 = new PIXI.Graphics();
         if (this.isDevMode) {
-          testCircle3.beginFill(0x99ffff);
+          this.testCircle3.beginFill(0x99ffff);
         } else {
-          testCircle3.beginFill(0x99ffff, 0);
+          this.testCircle3.beginFill(0x99ffff, 0);
         }
-        testCircle3.drawCircle(touch.pos.x, touch.pos.y, 10);
-        testCircle3.endFill();
-        this.addChild(testCircle3);
+        this.testCircle3.drawCircle(touch.pos.x, touch.pos.y, 10);
+        this.testCircle3.endFill();
+        this.addChild(this.testCircle3);
       }
       this.touchHandler();
     }
@@ -158,9 +174,9 @@ touchHandler() {
   // 印出目前有幾隻手指按在螢幕上
   this.removeChild(this.centerCircle); // 把中心點去除    
 
-  // this.removeChild(testCircle1);
-  // this.removeChild(testCircle2);
-  // this.removeChild(testCircle3);
+  this.removeChild(this.testCircle1);
+  this.removeChild(this.testCircle2);
+  this.removeChild(this.testCircle3);
 }
 calcDistance = () => {
   const dis = this.touches.map((_touch, idx) => {
@@ -184,6 +200,44 @@ calcDistance = () => {
     this.drawStamp(this.centerPointArr[0], true, this.chooseStampType);
   } else {
     this.drawStamp(this.centerPointArr[1], true, this.chooseStampType);
+  }
+}
+  public checkAns() {
+    let isAnsCorrect;
+    if (!this.isPCMode) {
+      isAnsCorrect = this.validateAns(this.centerPointArr);
+    } else {
+      isAnsCorrect = this.validateAns(this.userAnsArr);
+    }
+    if (isAnsCorrect) {
+      return eventEmitter.emit(GameFlowEvent.CheckAnsIsRightResponse);
+    } return eventEmitter.emit(GameFlowEvent.CheckAnsIsWrongResponse);
+  }
+ validateAns(posArr) {
+  var startIdx1 = 0,
+      startIdx2 = 0;
+  var count = 0;
+  const xd = 1080 / 8;
+  const yd = 899 / 8;
+  const toloranceD = xd > yd ? yd : xd;
+  const ansPointArray = [];
+  ansPointArray.push(this.ansPoint1);
+  ansPointArray.push(this.ansPoint2);  
+  for (; startIdx1 < 2; startIdx1++) {
+      for (startIdx2 = 0; startIdx2 < 2; startIdx2++) {
+          if (!posArr[startIdx1]) {
+            return false;
+          }
+          const distance = Math.sqrt(Math.pow(posArr[startIdx1].x - ansPointArray[startIdx2].x, 2) + Math.pow(posArr[startIdx1].y - ansPointArray[startIdx2].y, 2));
+          if (toloranceD >= distance) {
+              count++;
+          }
+      }
+  }
+  if (count >= 2) {
+    return true;
+  } else {
+    return false;
   }
 }
 calcPhotoCenter = (maxIdx) => {
@@ -238,31 +292,36 @@ calcPhotoAngle = (maxIdx) => {
   this.angle = this.angle;
 }
 createNewGame = () => {
-  this.addChild(PIXI.Sprite.from(Loader.resources[`level${stamps.LevelNum}`].texture));
+  const param = location.search;
+  let levelNumber = 1;
+  if (param.indexOf('level=2') > -1) {
+    levelNumber = 2;
+  } else if (param.indexOf('level=3') > -1) {
+    levelNumber = 3;
+  } else if (param.indexOf('level=3') > -1) {
+    levelNumber = 1;
+  }  else  {
+    levelNumber = 1;
+    window.history.pushState('', '', '?level=1');
+  }
+  this.addChild(PIXI.Sprite.from(Loader.resources[`level${levelNumber}`].texture));
   this.createNewAnser();
 }
 createNewAnser = () => {
-  // this.select1 = new Point(-1, -1);
-  // this.select2 = new Point(-1, -1);
-  // this.selected = false;
-  // this.pathHistory = [];
-  // this.valueHistory = [];
-  // reloadTimes = 3;
-  // board = new Board();
   if (this.isDevMode) {
     this.drawLine();
   }
+  this.removeChild(this.stampIcon1);
+  this.removeChild(this.stampIcon2);
 
   const { ansPoint1, ansPoint2 } = stamps.generateAnsPoint()
   this.ansPoint1 = ansPoint1;
   this.ansPoint2 = ansPoint2;
   this.drawStamp(this.ansPoint1, false, 1);
   this.drawStamp(this.ansPoint2, false, 2);
-  // this.drawBoardIcon();
   this.addChild(new TimerMask());
 
   eventEmitter.emit(GameFlowEvent.GameRoundStart);
-  // this.tipsPath = board.getFirstExistPath();
 };
 drawStamp = (point, isUserDraw, stampType) => {
 
@@ -303,6 +362,14 @@ drawStamp = (point, isUserDraw, stampType) => {
     this.stampIcon2.y = point.y;
     this.addChild(this.stampIcon2);      
   }
+  if (isUserDraw) {
+    if (stampType === 1) {
+      this.userAnsArr[0] = point;
+    } else {
+      this.userAnsArr[1] = point;
+    }
+  }
+  console.log('this.userAnsArr: ', this.userAnsArr);
 
 
   centerCircle.drawCircle(point.x, point.y, 10);
