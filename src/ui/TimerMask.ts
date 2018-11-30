@@ -6,6 +6,7 @@ import { Loader } from "../core/Loader";
 export class TimerMask extends Container {
     private text:PIXI.Text;
     private remainTimes:number = 5;
+    
     // private remainTimes:number = 1;
     private remainText:PIXI.Text;
     private clockInterval:any;

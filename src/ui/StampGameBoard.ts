@@ -28,9 +28,9 @@ export class StampGameBoard extends Container {
   private isPCMode: boolean;
   private touches: any = [];
   private isDevMode: boolean;
-  private centerPointArr: any;
+  private centerPointArr = [{x: 0, y: 0}, {x: 0, y: 0}];
   private centerCircle: any;
-  private angle: number;
+  private angle = 0;
   private stampIcon1: PIXI.Sprite;
   private stampIcon2: PIXI.Sprite;
   private testCircle1: PIXI.Graphics;
@@ -51,6 +51,7 @@ export class StampGameBoard extends Container {
       this.isPCMode = true;
       // alert('不支援多點觸控');
     }
+    
     this.createNewGame();
     this.x = 0;
     this.y = 0;
@@ -205,6 +206,7 @@ calcDistance = () => {
   public checkAns() {
     let isAnsCorrect;
     if (!this.isPCMode) {
+      console.log('this.centerPointArr: ', this.centerPointArr);
       isAnsCorrect = this.validateAns(this.centerPointArr);
     } else {
       isAnsCorrect = this.validateAns(this.userAnsArr);
@@ -261,14 +263,14 @@ calcPhotoCenter = (maxIdx) => {
   if (this.chooseStampType === 1) {
     this.centerPointArr[0].x = (x + _x) / 2;
     this.centerPointArr[0].y = (y + _y) / 2;
-    this.centerPointArr[0].type = this.chooseStampType;
+    // this.centerPointArr[0].type = this.chooseStampType;
     this.centerCircle.drawCircle(this.centerPointArr[0].x, this.centerPointArr[0].y, 10);
 
 
   } else {
     this.centerPointArr[1].x = (x + _x) / 2;
     this.centerPointArr[1].y = (y + _y) / 2;
-    this.centerPointArr[1].type = this.chooseStampType;
+    // this.centerPointArr[1].type = this.chooseStampType;
     this.centerCircle.drawCircle(this.centerPointArr[1].x, this.centerPointArr[1].y, 10);
 
   }
@@ -298,7 +300,7 @@ createNewGame = () => {
     levelNumber = 2;
   } else if (param.indexOf('level=3') > -1) {
     levelNumber = 3;
-  } else if (param.indexOf('level=3') > -1) {
+  } else if (param.indexOf('level=1') > -1) {
     levelNumber = 1;
   }  else  {
     levelNumber = 1;
@@ -349,6 +351,7 @@ drawStamp = (point, isUserDraw, stampType) => {
     this.stampIcon1.pivot.y = this.stampIcon1.height / 2;
     this.stampIcon1.width = stampWidth;
     this.stampIcon1.height = stampWidth;
+    this.stampIcon1.rotation = this.angle * (Math.PI / 180);
     this.stampIcon1.x = point.x;
     this.stampIcon1.y = point.y;
     this.addChild(this.stampIcon1);
@@ -358,6 +361,7 @@ drawStamp = (point, isUserDraw, stampType) => {
     this.stampIcon2.pivot.y = this.stampIcon2.height / 2;
     this.stampIcon2.width = stampWidth;
     this.stampIcon2.height = stampWidth;
+    this.stampIcon2.rotation = this.angle * (Math.PI / 180);
     this.stampIcon2.x = point.x;
     this.stampIcon2.y = point.y;
     this.addChild(this.stampIcon2);      
@@ -369,8 +373,6 @@ drawStamp = (point, isUserDraw, stampType) => {
       this.userAnsArr[1] = point;
     }
   }
-  console.log('this.userAnsArr: ', this.userAnsArr);
-
 
   centerCircle.drawCircle(point.x, point.y, 10);
   this.addChild(centerCircle);
