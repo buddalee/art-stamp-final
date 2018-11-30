@@ -8,6 +8,6 @@ export class FBBtn extends ButtonBase {
     }
     public trigger() {
         // window.open(`https://www.facebook.com/sharer/sharer.php?u=https://buddalee.github.io/art-stamp/`, 'Budda Lee');
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${this._location.url}`, 'Budda Lee');
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${this._location.href}`, 'Budda Lee');
     }
 }
