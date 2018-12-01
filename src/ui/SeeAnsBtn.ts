@@ -23,6 +23,10 @@ export class SeeAnsBtn extends ButtonBase {
     checkAnsText.x = -35;
     checkAnsText.y = -13;
     this.addChild(checkAnsText);
+    this.interactive = false;
+    eventEmitter.on(GameFlowEvent.GameEndWithTimeout, () => {
+      this.interactive = true;
+    });
   }
   public trigger() {
     eventEmitter.emit(GameFlowEvent.SeeAnsRequest);

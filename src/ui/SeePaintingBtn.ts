@@ -21,7 +21,7 @@ export class SeePaintingBtn extends ButtonBase {
       fill: '#fff',
       align: 'center'
     });
-    checkAnsText.x = -34;
+    checkAnsText.x = -31;
     checkAnsText.y = -13;
     this.addChild(checkAnsText);
   }

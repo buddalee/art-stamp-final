@@ -13,19 +13,19 @@ export class ChooseStamp1Btn extends Container {
     this.buttonMode = true;
     this.gt = new PIXI.Graphics();
     this.gt.beginFill(0xf5a623, 0.3);
-    this.gt.drawRect(1094,175,151,85);
+    this.gt.drawRect(1094,180,151,85);
     this.gt.endFill();
     this.addChild(this.gt);
     const stamp1 = PIXI.Sprite.from(Loader.resources["stamp1_icon"].texture);
     stamp1.x = 1174;
-    stamp1.y = 192;
+    stamp1.y = 197;
     stamp1.width = 50;
     stamp1.height = 50;
     
     this.addChild(stamp1);
     const mouseStamp = PIXI.Sprite.from(Loader.resources["mouse_stamp"].texture);
     mouseStamp.x = 1112;
-    mouseStamp.y = 192;
+    mouseStamp.y = 197;
     mouseStamp.width = 50;
     mouseStamp.height = 50;
     this.addChild(mouseStamp);

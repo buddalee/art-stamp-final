@@ -19,7 +19,7 @@ export class NextLevelBtn extends ButtonBase {
       fill: '#fff',
       align: 'center'
     });
-    checkAnsText.x = -41;
+    checkAnsText.x = -32;
     checkAnsText.y = -13;
     this.addChild(checkAnsText);
   }

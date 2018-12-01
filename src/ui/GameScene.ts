@@ -36,9 +36,9 @@ export class GameScene {
         application.stage.addChild(new StampGameBoard());
         application.stage.addChild(new CheckAnsBtn());
         const chooseStampHint = new PIXI.Text("請選擇印章總類", {
-            fontSize: 15,
+            fontSize: 21,
             fontFamily: 'PingFangTC',
-            fill: '#4a4a4a',
+            fill: '#8b572a',
             align: 'center'
         });
         chooseStampHint.x = 1094;
