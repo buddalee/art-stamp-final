@@ -157,9 +157,11 @@ export class StampGameBoard extends Container {
       console.log('this.tempDatas: ', this.tempDatas);
       if (this.tempDatas.length <=3) {
         this.chooseStampType = 1;
+        eventEmitter.emit(GameFlowEvent.chooseStamp1Request);
         this.calcDistance(1);
       } else {
         this.chooseStampType = 2;
+        eventEmitter.emit(GameFlowEvent.chooseStamp2Request);
         this.calcDistance(2);
       }
       

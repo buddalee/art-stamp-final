@@ -32,6 +32,10 @@ export class ChooseStamp1Btn extends Container {
 
     this.on("mouseup", this.trigger.bind(this));
     this.on("touchend", this.trigger.bind(this));
+    eventEmitter.on(GameFlowEvent.chooseStamp1Request, () => {
+      this.isClicked = true;
+      this.gt.visible = true;
+    });
     eventEmitter.on(GameFlowEvent.chooseStamp2Request, () => {
       this.isClicked = false;
       this.gt.visible = false;
