@@ -20,6 +20,7 @@ import { SeeAnsBtn } from './SeeAnsBtn';
 import { ContinueBtn } from './ContinueBtn';
 // import { TimerMask } from './TimerMask';
 import { StampGameBoard } from './StampGameBoard';
+import { GoHomeBtn } from './GoHomeBtn';
 export class PaintingInfoScene {
     
     public static draw(){
@@ -67,7 +68,7 @@ export class PaintingInfoScene {
         authorTitle.x = 1094;
         authorTitle.y = 146;
         application.stage.addChild(authorTitle);
-        const description = info.ArticleContext.replace(/&nbsp;/g, '');
+        const description = info.ArticleContext.replace(/&nbsp;/g, '').replace(/\r/g, '');
         console.log('author: ', author);
         const descriptionText = new PIXI.Text(description, {
             fontSize: 16,
@@ -89,38 +90,34 @@ export class PaintingInfoScene {
         });
         descriptionTitle.x = 1094;
         descriptionTitle.y = 218;
-        application.stage.addChild(descriptionTitle);        
-        // const painting = PIXI.Sprite.from(Loader.resources["painting_name"].texture);
-        // painting.x = 1094;
-        // painting.y = 23;
-        // application.stage.addChild(painting);
+        application.stage.addChild(descriptionTitle);    
+    
+        const stampText = new PIXI.Text('印記', {
+            fontSize: 21,
+            fontFamily: 'PingFangTC',
+            fill: '#8b572a',
+            align: 'center'
+        });
+        stampText.x = 1094;
+        stampText.y = 753;
+        application.stage.addChild(stampText);  
+
+        const stampText1 = new PIXI.Text('乾、隆', {
+            fontSize: 16,
+            fontFamily: 'PingFangTC',
+            fill: '#4a4a4a',
+            align: 'center'
+        });
+        stampText1.x = 1094;
+        stampText1.y = 785;
+        application.stage.addChild(stampText1);  
+
         application.stage.addChild(new PaintingTitle());
         application.stage.addChild(new ContinueBtn());
-        
-        // application.stage.addChild(new SeeAnsBtn());
-        
-        
-        
-        // const checkAnsBtn = PIXI.Sprite.from(Loader.resources["btn1"].texture);
-        // checkAnsBtn.x = 1104;
-        // checkAnsBtn.y = 813;
-        // application.stage.addChild(checkAnsBtn);
 
-
-        
-        //加入連連看牌面
-        // application.stage.addChild(new GameBoard());
-        // application.stage.addChild(LinkedLine.instance);
-        //加入按鈕
-        // application.stage.addChild(new SoundBtn());
-        // application.stage.addChild(new RevertBtn());
-        // application.stage.addChild(new TipBtn());
-        // application.stage.addChild(new ReloadBtn());
         application.stage.addChild(new FBBtn());
-        // application.stage.addChild(new Stars());
-        // application.stage.addChild(new Clock());
+        application.stage.addChild(new GoHomeBtn());
+        
 
-        // application.stage.addChild(new Character());
-        // application.stage.addChild(new GameRoundEnd());
     }
 }

@@ -47,6 +47,11 @@ export class Main {
                 //繪製場景
                 PaintingInfoScene.draw();
             });
+            eventEmitter.on(GameFlowEvent.GotoHomeRequest, ()=>{
+                application.stage.removeChildren();
+                //繪製場景
+                MainMenuScene.draw();
+            });
             eventEmitter.on(GameFlowEvent.NextLevelRequest, ()=>{
                 application.stage.removeChildren();
                 console.log('!!!!');

@@ -26,5 +26,5 @@ export class GameFlowEvent{
     public static NextLevelRequest: string = "NextLevelRequest";
     public static SeeAnsRequest: string = "SeeAnsRequest";     
     public static ReloadGameRequest: string = "ReloadGameRequest";       
-      
+    public static GotoHomeRequest: string = "GotoHomeRequest";             
 }
