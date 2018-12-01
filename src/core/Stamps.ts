@@ -47,34 +47,55 @@ export class Stamps {
 
   }
   public getOpenData() {
-    const serials = ['04000974', '04000975', '04001001'];
+    const serials = ['04000975', '04001001'];
     const queue = [];
-    serials.forEach(serial_no => {
-      const settings = {
-        "async": false,
-        "crossDomain": true,
-        "url": `https://cors-anywhere.herokuapp.com/openapi.npm.gov.tw/v1/rest/collection/search/${serial_no}`,
-        "method": "GET",
-        "headers": {
-          "apiKey": "64991b29-619f-43f9-a86d-1441c3c5f8a3"
-        }
+    const firstSettings = {
+      "async": false,
+      "crossDomain": true,
+      "url": `https://cors-anywhere.herokuapp.com/openapi.npm.gov.tw/v1/rest/collection/search/04000974`,
+      "method": "GET",
+      "headers": {
+        "apiKey": "64991b29-619f-43f9-a86d-1441c3c5f8a3"
       }
-      queue.push($.ajax(settings));
-      // $.ajax(settings).done(function (response) {
-      //   console.log(response);
-      //   paintingInfos.push(response);
-      // });
+    }
+    $.ajax(firstSettings).done(function (response) {
+      console.log(response);
+      paintingInfos.push(response.result[0]);
+      window.history.pushState('', '', '?level=1');
+      serials.map(serial_no => {
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": `https://cors-anywhere.herokuapp.com/openapi.npm.gov.tw/v1/rest/collection/search/${serial_no}`,
+          "method": "GET",
+          "headers": {
+            "apiKey": "64991b29-619f-43f9-a86d-1441c3c5f8a3"
+          }
+        }
+        queue.push($.ajax(settings));
+        // $.ajax(settings).done(function (response) {
+        //   paintingInfos.push(response);
+        // });
+      });
     });
-    $.when(queue[0], queue[1], queue[2]).done(function(r1, r2, r3) {
+    $.when(queue[0], queue[1]).done(function(r1, r2, r3) {
       console.log(r1);
       console.log(r2);
-      console.log(r3);
       paintingInfos.push(r1[0].result[0]);
       paintingInfos.push(r2[0].result[0]);
-      paintingInfos.push(r3[0].result[0]);
-      
+      paintingInfos = paintingInfos.sort((pre, next) => +pre.Serial_No - +next.Serial_No);
       console.log("all ajax down ");
     });
+    // $.when(queue[0], queue[1], queue[2]).done(function(r1, r2, r3) {
+    //   console.log(r1);
+    //   console.log(r2);
+    //   console.log(r3);
+    //   paintingInfos.push(r1[0].result[0]);
+    //   paintingInfos.push(r2[0].result[0]);
+    //   paintingInfos.push(r3[0].result[0]);
+      
+    //   console.log("all ajax down ");
+    // });
   }
 
   public isTouchSupported() {
