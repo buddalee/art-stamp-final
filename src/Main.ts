@@ -9,7 +9,7 @@ import { MainMenuScene } from "./ui/MainMenuScene";
 import { GameFlowEvent } from "./core/Event";
 import { PaintingInfoScene } from './ui/PaintingInfoScene';
 import { Stamps } from './core/Stamps';
-
+import { IntroductionScene } from './ui/IntroductionScene';
 export let eventEmitter:EventEmitter;
 export let application:Application;
 export let canvasWidth: number;
@@ -37,6 +37,11 @@ export class Main {
             // SoundMgr.play('Sound_bg',true);
             //繪製主選單場景
             MainMenuScene.draw();
+            eventEmitter.on(GameFlowEvent.RenderIntroductionSceneRequest, ()=>{
+                application.stage.removeChildren();
+                //繪製場景
+                IntroductionScene.draw();
+            });
             eventEmitter.on(GameFlowEvent.RenderGameScene, ()=>{
                 application.stage.removeChildren();
                 //繪製場景
