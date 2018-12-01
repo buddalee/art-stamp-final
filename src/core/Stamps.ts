@@ -59,7 +59,6 @@ export class Stamps {
       }
     }
     $.ajax(firstSettings).done(function (response) {
-      console.log(response);
       paintingInfos.push(response.result[0]);
       window.history.pushState('', '', '?level=1');
       serials.map(serial_no => {
@@ -79,12 +78,12 @@ export class Stamps {
       });
     });
     $.when(queue[0], queue[1]).done(function(r1, r2, r3) {
-      console.log(r1);
-      console.log(r2);
+      // console.log(r1);
+      // console.log(r2);
       paintingInfos.push(r1[0].result[0]);
       paintingInfos.push(r2[0].result[0]);
       paintingInfos = paintingInfos.sort((pre, next) => +pre.Serial_No - +next.Serial_No);
-      console.log("all ajax down ");
+      // console.log("all ajax down ");
     });
     // $.when(queue[0], queue[1], queue[2]).done(function(r1, r2, r3) {
     //   console.log(r1);

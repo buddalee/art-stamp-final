@@ -37,7 +37,7 @@ export class StampGameBoard extends Container {
   private testCircle2: PIXI.Graphics;
   private testCircle3: PIXI.Graphics;  
   private userAnsArr = [];  
-  
+  private tempDatas = [];
 
   constructor() {
     super();
@@ -46,6 +46,8 @@ export class StampGameBoard extends Container {
     }
     if (stamps.isTouchSupported()) {
       this.isPCMode = false;
+      document.addEventListener("contextmenu", (e) => e.preventDefault());
+
       // alert('支援多點觸控');
     } else {
       this.isPCMode = true;
@@ -91,6 +93,7 @@ export class StampGameBoard extends Container {
       x: Math.floor(eventData.global.x),
       y: Math.floor(eventData.global.y)
     };
+    console.log('isPCMode: ', this.isPCMode);
     if (!this.isPCMode) {
       const touch = {
         // 主要依據 id 來判斷當下有幾隻手指在手機上
@@ -98,6 +101,7 @@ export class StampGameBoard extends Container {
         pos: this.touchData
       };
       this.touches.push(touch);
+      this.tempDatas.push(touch);
       if (this.touches.length === 1) {
         this.testCircle1 = new PIXI.Graphics();
         if (this.isDevMode) {
@@ -136,23 +140,36 @@ export class StampGameBoard extends Container {
   }
   onDragEnd = (e) => {
     console.log('目前有幾隻手指按在螢幕上: ', this.touches.length);
-    if (!this.isPCMode) {
-      if (this.touches.length > 4) {
-        this.chooseStampType = 2;
-      } else {
-        this.chooseStampType = 1;
-      }
+    // if (!this.isPCMode) {
+    //   if (this.touches.length > 4) {
+    //     this.chooseStampType = 2;
+    //   } else {
+    //     this.chooseStampType = 1;
+    //   }
+    // }
+    let checksum = 0;
+    if (checksum  === 0 && this.touches.length > 5) {
+      checksum = this.touches.length - 5
     }
-
-    if (this.touches.length >= 3) {
-      this.calcDistance();
-      if (!this.isPCMode) {
-        if (this.touches.length > 4) {
-          // isFourTouch = true;
-        } else {
-          // isFourTouch = false;
-        }
+    
+    console.log('checksum: ', checksum);
+    if ((this.touches.length - checksum) === 1) {
+      console.log('this.tempDatas: ', this.tempDatas);
+      if (this.tempDatas.length <=3) {
+        this.chooseStampType = 1;
+        this.calcDistance(1);
+      } else {
+        this.chooseStampType = 2;
+        this.calcDistance(2);
       }
+      
+      // if (!this.isPCMode) {
+      //   if (this.touches.length > 4) {
+      //     // isFourTouch = true;
+      //   } else {
+      //     // isFourTouch = false;
+      //   }
+      // }
 
     }
     const eventData = e.data;
@@ -161,6 +178,7 @@ export class StampGameBoard extends Container {
         // 當離開的手指存在在 touches 陣列裡時，移除該筆資料
         if (this.touches[i].id === eventData.identifier) {
           this.touches.splice(i, 1);
+          // this.tempDatas.splice(i, 1);
         }
       };
     } else {
@@ -179,17 +197,18 @@ touchHandler() {
   this.removeChild(this.testCircle2);
   this.removeChild(this.testCircle3);
 }
-calcDistance = () => {
-  const dis = this.touches.map((_touch, idx) => {
+calcDistance = (type) => {
+  console.log('this.touches: ', this.touches);
+  const dis: any = this.tempDatas.map((_touch, idx) => {
     let anotherIdx;
-    if (idx === this.touches.length - 1) {
+    if (idx === this.tempDatas.length - 1) {
       anotherIdx = 0;
     } else {
       anotherIdx = idx + 1;
     }
-    const { x, y } = this.touches[idx].pos;
-    const _x = this.touches[anotherIdx].pos.x;
-    const _y = this.touches[anotherIdx].pos.y;
+    const { x, y } = this.tempDatas[idx].pos;
+    const _x = this.tempDatas[anotherIdx].pos.x;
+    const _y = this.tempDatas[anotherIdx].pos.y;
     const distance = Math.sqrt(Math.pow(x - _x, 2) + Math.pow(y - _y, 2));
     return distance;
   });
@@ -197,16 +216,17 @@ calcDistance = () => {
   const maxIdx = dis.findIndex(_dis => _dis === maxDistance);
   this.calcPhotoCenter(maxIdx);
   this.calcPhotoAngle(maxIdx);
-  if (this.chooseStampType === 1) {
+  if (type === 1) {
     this.drawStamp(this.centerPointArr[0], true, this.chooseStampType);
   } else {
     this.drawStamp(this.centerPointArr[1], true, this.chooseStampType);
   }
+  this.touches = [];
+  this.tempDatas = [];
 }
   public checkAns() {
     let isAnsCorrect;
     if (!this.isPCMode) {
-      console.log('this.centerPointArr: ', this.centerPointArr);
       isAnsCorrect = this.validateAns(this.centerPointArr);
     } else {
       isAnsCorrect = this.validateAns(this.userAnsArr);
@@ -244,14 +264,14 @@ calcDistance = () => {
 }
 calcPhotoCenter = (maxIdx) => {
   var anotherIdx;
-  if (maxIdx === this.touches.length - 1) {
+  if (maxIdx === this.tempDatas.length - 1) {
     anotherIdx = 0;
   } else {
     anotherIdx = maxIdx + 1;
   }
-  const { x, y } = this.touches[maxIdx].pos;
-  const _x = this.touches[anotherIdx].pos.x;
-  const _y = this.touches[anotherIdx].pos.y;
+  const { x, y } = this.tempDatas[maxIdx].pos;
+  const _x = this.tempDatas[anotherIdx].pos.x;
+  const _y = this.tempDatas[anotherIdx].pos.y;
   this.removeChild(this.centerCircle); // 把中心點去除
   this.centerCircle = new PIXI.Graphics();
   if (this.isDevMode) {
@@ -280,13 +300,13 @@ calcPhotoCenter = (maxIdx) => {
 calcPhotoAngle = (maxIdx) => {
   let anotherIdx;
   if (maxIdx === 0) {
-    anotherIdx = this.touches.length - 1;
+    anotherIdx = this.tempDatas.length - 1;
   } else {
     anotherIdx = maxIdx - 1;
   }
-  const { x, y } = this.touches[anotherIdx].pos;
-  const _x = this.touches[maxIdx].pos.x;
-  const _y = this.touches[maxIdx].pos.y;
+  const { x, y } = this.tempDatas[anotherIdx].pos;
+  const _x = this.tempDatas[maxIdx].pos.x;
+  const _y = this.tempDatas[maxIdx].pos.y;
   var cX = _x - x;
   var cY = _y - y;
   var xrad = Math.atan2(cY, cX);
