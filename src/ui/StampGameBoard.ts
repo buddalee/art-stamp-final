@@ -1,15 +1,10 @@
 import Container = PIXI.Container;
-import { Board } from "../core/Board";
 import { Loader } from "../core/Loader";
 import Point = PIXI.Point;
-import { Path } from "../core/Path";
-import { GameIcon } from "./GameIcon";
-import { LinkedLine } from "./LinkedLine";
 import { eventEmitter, stamps } from "../Main";
 import { GameFlowEvent } from "../core/Event";
 import { TimerMask } from './TimerMask';
 
-export let board: Board;
 export let reloadTimes: number = 3;
 
 export class StampGameBoard extends Container {

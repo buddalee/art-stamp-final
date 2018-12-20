@@ -14,7 +14,6 @@ export class PaintingTitle extends Container {
     painting.x = 1094;
     painting.y = 23;
     this.addChild(painting);
-    console.log('paintingInfos ', paintingInfos);
     const param = location.search;
     let levelNumber = 1;
     if (param.indexOf('level=2') > -1) {
@@ -39,7 +38,6 @@ export class PaintingTitle extends Container {
     this.addChild(this.paintingText);
   }
   public trigger() {
-    // eventEmitter.emit(GameFlowEvent.CreateNewGameRequest);
-    // this.visible = false;
+
   }
 }

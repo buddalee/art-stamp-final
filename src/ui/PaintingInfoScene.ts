@@ -1,9 +1,7 @@
 import {Loader} from "../core/Loader";
 import {application, stamps} from "../Main";
 import { paintingInfos } from '../core/Stamps';
-import { LinkedLine } from "./LinkedLine";
 import { RevertBtn } from "./RevertBtn";
-import { TipBtn } from "./TipBtn";
 import { FBBtn } from "./FBBtn";
 import { GameRoundEnd } from "./GameRoundEnd";
 import { CheckAnsBtn } from "./CheckAnsBtn";

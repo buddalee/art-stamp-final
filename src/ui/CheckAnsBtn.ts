@@ -11,7 +11,6 @@ export class CheckAnsBtn extends ButtonBase {
       'check_ans_btn',
       1259, 841
     );
-    // this.updateImage();
     const checkAnsText = new PIXI.Text("確定答案", {
       fontSize: 21,
       fontFamily: 'PingFangTC',
@@ -30,20 +29,5 @@ export class CheckAnsBtn extends ButtonBase {
   }
   public trigger() {
     eventEmitter.emit(GameFlowEvent.CheckAnsRequest);
-    
-    // this.handleAns();
-    // this.isClicked = !this.isClicked;
-    // this.updateImage();
   }
-  // handleAns() {
-  //   eventEmitter.emit(GameFlowEvent.ShowAnsCorrect);
-  // }
-  // updateImage = () => {
-  //   if (this.isClicked) {
-  //     this.texture = PIXI.Sprite.fromImage("assets/btn-active-m.png").texture;
-  //   } else {
-  //     this.texture = PIXI.Sprite.fromImage("assets/btn-normal-m.png").texture;
-  //   }
-  // }
-
 }

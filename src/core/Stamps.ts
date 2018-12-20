@@ -1,6 +1,4 @@
-import { Path } from "./Path";
 import Point = PIXI.Point;
-import { Direction } from "./Direction";
 
 export let paintingInfos = [];
 
@@ -10,33 +8,24 @@ export class Stamps {
   private anserNum1: number;
   private anserNum2: number;
   public LevelNum: number;
-  
+
   constructor() {
     this.getOpenData();
     this.LevelNum = 1;
     this.centerPTArr = [];
     let startx = 0,
-        starty = 0,
-        endx = 4,
-        endy = 4;
+      starty = 0,
+      endx = 4,
+      endy = 4;
     const xd = 1080 / 8;
     const yd = 899 / 8;
     for (; startx < endx; startx++) {
-        for (starty = 0; starty < endy; starty++) {
-            const x = xd + starty * 2 * xd;
-            const y = yd + startx * 2 * yd;
-            this.centerPTArr.push({ x, y });
-        }
-    } 
-    // console.log('this.centerPTArr: ', this.centerPTArr);
-    // let content = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-    // //產生初始局面
-    // let length = 10;
-    // let data = (content.concat(content).concat(content).concat(content)).sort((a, b) => (Math.random() > .5) ? 1 : -1);
-    // this.board = []
-    // for (var i = 0; i < length; i++) {
-    //   this.board.push(data.slice(i * length, (i + 1) * length))
-    // }
+      for (starty = 0; starty < endy; starty++) {
+        const x = xd + starty * 2 * xd;
+        const y = yd + startx * 2 * yd;
+        this.centerPTArr.push({ x, y });
+      }
+    }
   }
   private getRandomInt(min: number, max: number) {
     this.anserNum1 = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -72,35 +61,19 @@ export class Stamps {
           }
         }
         queue.push($.ajax(settings));
-        // $.ajax(settings).done(function (response) {
-        //   paintingInfos.push(response);
-        // });
       });
     });
-    $.when(queue[0], queue[1]).done(function(r1, r2, r3) {
-      // console.log(r1);
-      // console.log(r2);
+    $.when(queue[0], queue[1]).done(function (r1, r2, r3) {
       paintingInfos.push(r1[0].result[0]);
       paintingInfos.push(r2[0].result[0]);
       paintingInfos = paintingInfos.sort((pre, next) => +pre.Serial_No - +next.Serial_No);
-      // console.log("all ajax down ");
     });
-    // $.when(queue[0], queue[1], queue[2]).done(function(r1, r2, r3) {
-    //   console.log(r1);
-    //   console.log(r2);
-    //   console.log(r3);
-    //   paintingInfos.push(r1[0].result[0]);
-    //   paintingInfos.push(r2[0].result[0]);
-    //   paintingInfos.push(r3[0].result[0]);
-      
-    //   console.log("all ajax down ");
-    // });
   }
 
   public isTouchSupported() {
     if (('ontouchstart' in window) ||
-    (navigator.maxTouchPoints > 0) ||
-    (navigator.msMaxTouchPoints > 0)) {
+      (navigator.maxTouchPoints > 0) ||
+      (navigator.msMaxTouchPoints > 0)) {
       return true;
     }
     return false;
@@ -109,194 +82,8 @@ export class Stamps {
     this.getRandomInt(1, 16);
     return {
       ansPoint1: this.centerPTArr[this.anserNum1 - 1],
-      ansPoint2: this.centerPTArr[this.anserNum2 - 1]      
+      ansPoint2: this.centerPTArr[this.anserNum2 - 1]
     }
   }
-  // public gameRoundEnd(): boolean {
-  //   for (var i = 0; i < this.board.length; i++) {
-  //     for (var j = 0; j < this.board[i].length; j++) {
-  //       if (this.board[i][j] != null) {
-  //         return false;
-  //       }
-  //     }
-  //   }
-  //   return true;
-  // }
 
-  // public getFirstExistPath(): Path {
-  //   var searchedValue = [];
-  //   for (var i = 0; i < this.board.length; i++) {
-  //     for (var j = 0; j < this.board[i].length; j++) {
-  //       let value = this.board[i][j];
-  //       if (value != null && searchedValue.indexOf(value) == -1) {
-  //         searchedValue.push(value);
-  //         let positionsArr = this.getPositionByValue(value);
-  //         let permutationsArr = this.getPairNumPermutations(positionsArr.length);
-  //         for (var k = 0; k < permutationsArr.length; k++) {
-  //           let v = permutationsArr[k];
-  //           let path = new Path(positionsArr[v[0]], positionsArr[v[1]], this);
-  //           if (path.canLinkInLine()) {
-  //             return path;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return null;
-  // }
-
-  // private getAllValueInBoard() {
-  //   let values = [];
-  //   for (var i = 0; i < this.board.length; i++) {
-  //     for (var j = 0; j < this.board[i].length; j++) {
-  //       if (this.board[i][j] != null) {
-  //         values.push(this.board[i][j]);
-  //       }
-  //     }
-  //   }
-  //   return values;
-  // }
-
-  // public rearrangeBoard() {
-  //   let values = this.getAllValueInBoard().sort((a, b) => (Math.random() > .5) ? 1 : 0);
-  //   for (var i = 0; i < this.board.length; i++) {
-  //     for (var j = 0; j < this.board[i].length; j++) {
-  //       if (this.board[i][j] != null) {
-  //         this.board[i][j] = values.pop();
-  //       }
-  //     }
-  //   }
-  // }
-
-  // private pairNumPermutations = {};
-  // /**
-  //  * 取得輸入的index中，2個2個一組的所有可能排列組合
-  //  */
-  // public getPairNumPermutations(num: number) {
-  //   if (this.pairNumPermutations[num] != null) {
-  //     return this.pairNumPermutations[num];
-  //   }
-  //   let data = [];
-  //   for (var i = 0; i < num; i++) {
-  //     for (var j = 0; j < num; j++) {
-  //       if (i != j && i <= j) {
-  //         data.push([i, j]);
-  //       }
-  //     }
-  //   }
-  //   this.pairNumPermutations[num] = data;
-  //   return data;
-  // }
-
-  // public getPositionByValue(value: number): Array<Point> {
-  //   let arr = new Array<Point>();
-  //   for (var i = 0; i < this.board.length; i++) {
-  //     for (var j = 0; j < this.board[i].length; j++) {
-  //       if (this.board[i][j] == value) {
-  //         arr.push(new Point(i, j));
-  //       }
-  //     }
-  //   }
-  //   return arr;
-  // }
-
-  // public getNearByPointByDirection(point: Point, direction: string): Point {
-  //   let nearByPoint: Point = new Point(point.x, point.y);
-  //   switch (direction) {
-  //     case Direction.UP:
-  //       for (var i = point.x - 1; i >= 0; i--) {
-  //         if (this.board[i][point.y] == null) {
-  //           nearByPoint.x = i;
-  //         } else {
-  //           break;
-  //         }
-  //       }
-  //       if (nearByPoint.x == 0) {
-  //         nearByPoint.x = -1;
-  //       }
-  //       break;
-  //     case Direction.DOWN:
-  //       let maxLengthDOWN = this.board.length;
-  //       for (var i = point.x + 1; i < maxLengthDOWN; i++) {
-  //         if (this.board[i][point.y] == null) {
-  //           nearByPoint.x = i;
-  //         } else {
-  //           break;
-  //         }
-  //       }
-  //       if (nearByPoint.x == maxLengthDOWN - 1) {
-  //         nearByPoint.x = maxLengthDOWN;
-  //       }
-  //       break;
-  //     case Direction.RIGHT:
-  //       let maxLengthRIGHT = this.board[0].length;
-  //       for (var i = point.y + 1; i < maxLengthRIGHT; i++) {
-  //         if (this.board[point.x][i] == null) {
-  //           nearByPoint.y = i;
-  //         } else {
-  //           break;
-  //         }
-  //       }
-  //       if (nearByPoint.y == maxLengthRIGHT - 1) {
-  //         nearByPoint.y = maxLengthRIGHT;
-  //       }
-  //       break;
-  //     case Direction.LEFT:
-  //       for (var i = point.y - 1; i >= 0; i--) {
-  //         if (this.board[point.x][i] == null) {
-  //           nearByPoint.y = i;
-  //         } else {
-  //           break;
-  //         }
-  //       }
-  //       if (nearByPoint.y == 0) {
-  //         nearByPoint.y = -1;
-  //       }
-  //       break;
-  //   }
-  //   return nearByPoint;
-  // }
-
-  // public canFindPath(a: Point, b: Point, direction: string): boolean {
-  //   return this.hasMiddleValue(a, b);
-  // }
-  // public hasMiddleValue(a: Point, b: Point): boolean {
-  //   let arr = [];
-  //   if (a.x == b.x) {
-  //     if (a.x == -1 || a.x == this.board.length) return false;
-  //     let max = Math.max(a.y, b.y);
-  //     let min = Math.min(a.y, b.y);
-  //     for (var i = min + 1; i < max; i++) {
-  //       if (this.board[a.x][i] != null) {
-  //         return true;
-  //       }
-  //     }
-  //     return false;
-  //   } else if (a.y == b.y) {
-  //     if (a.y == -1 || a.y == this.board[0].length) return false;
-  //     let max = Math.max(a.x, b.x);
-  //     let min = Math.min(a.x, b.x);
-  //     for (var i = min + 1; i < max; i++) {
-  //       if (this.board[i][a.y] != null) {
-  //         return true;
-  //       }
-  //     }
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
-  // public hasSameValue(point1: Point, point2: Point): boolean {
-  //   return this.board[point1.x][point1.y] == this.board[point2.x][point2.y];
-  // }
-
-  // public getValue(point: Point): number {
-  //   return this.board[point.x][point.y];
-  // }
-
-  // public clearPoint(point: Point) {
-  //   this.board[point.x][point.y] = null;
-  //   point = null;
-  // }
 }
