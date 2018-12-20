@@ -5,7 +5,6 @@ import { RevertBtn } from "./RevertBtn";
 import { TipBtn } from "./TipBtn";
 import { FBBtn } from "./FBBtn";
 import { GameRoundEnd } from "./GameRoundEnd";
-import { Character } from "./Character";
 import { CheckAnsBtn } from "./CheckAnsBtn";
 import { PaintingTitle } from './PaintingTitle';
 import { Dialog } from './Dialog';
