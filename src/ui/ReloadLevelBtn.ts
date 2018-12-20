@@ -1,6 +1,5 @@
 import { ButtonBase } from "./ButtonBase";
 import { Loader } from "../core/Loader";
-import { SoundMgr } from "../core/SoundMgr";
 import { eventEmitter } from "../Main";
 import { GameFlowEvent } from "../core/Event";
 

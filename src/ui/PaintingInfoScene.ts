@@ -1,15 +1,10 @@
 import {Loader} from "../core/Loader";
 import {application, stamps} from "../Main";
 import { paintingInfos } from '../core/Stamps';
-import {SoundBtn} from "./SoundBtn";
-// import {GameBoard} from "./GameBoard";
 import { LinkedLine } from "./LinkedLine";
 import { RevertBtn } from "./RevertBtn";
 import { TipBtn } from "./TipBtn";
-import { ReloadBtn } from "./ReloadBtn";
 import { FBBtn } from "./FBBtn";
-import { Stars } from "./Stars";
-import { Clock } from "./Clock";
 import { GameRoundEnd } from "./GameRoundEnd";
 import { Character } from "./Character";
 import { CheckAnsBtn } from "./CheckAnsBtn";
@@ -18,14 +13,12 @@ import { Dialog } from './Dialog';
 import { ReloadLevelBtn } from './ReloadLevelBtn';
 import { SeeAnsBtn } from './SeeAnsBtn';
 import { ContinueBtn } from './ContinueBtn';
-// import { TimerMask } from './TimerMask';
 import { StampGameBoard } from './StampGameBoard';
 import { GoHomeBtn } from './GoHomeBtn';
 export class PaintingInfoScene {
     
     public static draw(){
         //加入背景
-        // application.stage.addChild(PIXI.Sprite.from(Loader.resources["level1"].texture));
         const param = location.search;
         let levelNumber = 1;
         if (param.indexOf('level=2') > -1) {
@@ -43,13 +36,8 @@ export class PaintingInfoScene {
         handleBackground.y = 0;
         application.stage.addChild(handleBackground);
         
-        // const _paintingInfos = paintingInfos.sort((pre, next) => next.Serial_No - +pre.Serial_No);
-
-        console.log('paintingInfos ', paintingInfos);
-
         const info = paintingInfos[levelNumber - 1];
         const author = info.ArticleMaker;
-        console.log('author: ', author);
         const authorText = new PIXI.Text(author, {
             fontSize: 16,
             fontFamily: 'PingFangTC',
@@ -69,7 +57,6 @@ export class PaintingInfoScene {
         authorTitle.y = 146;
         application.stage.addChild(authorTitle);
         const description = info.ArticleContext.replace(/&nbsp;/g, '').replace(/\r/g, '');
-        console.log('author: ', author);
         const descriptionText = new PIXI.Text(description, {
             fontSize: 16,
             fontFamily: 'PingFangTC',

@@ -3,7 +3,6 @@ import {CoreEvent} from "./core/Event";
 import Application = PIXI.Application;
 import {Loader} from "./core/Loader";
 import Resource = PIXI.loaders.Resource;
-import { SoundMgr } from "./core/SoundMgr";
 import { GameScene } from "./ui/GameScene";
 import { MainMenuScene } from "./ui/MainMenuScene";
 import { GameFlowEvent } from "./core/Event";
@@ -27,14 +26,11 @@ export class Main {
         application = new PIXI.Application(1440, 899, {backgroundColor : 0x000000, view: gameCanvasContext});
         //設定共用的事件傳遞元件
         eventEmitter = new EventEmitter();
-        SoundMgr.load();
         stamps = new Stamps();
         console.log('!!!!');
         eventEmitter.on(CoreEvent.AssetsLoadComplete,()=>{
             //隱藏loading page
             jQuery("#loadingPage").hide();
-            //播放背景音樂
-            // SoundMgr.play('Sound_bg',true);
             //繪製主選單場景
             MainMenuScene.draw();
             eventEmitter.on(GameFlowEvent.RenderIntroductionSceneRequest, ()=>{
@@ -59,7 +55,6 @@ export class Main {
             });
             eventEmitter.on(GameFlowEvent.NextLevelRequest, ()=>{
                 application.stage.removeChildren();
-                console.log('!!!!');
                 const param = location.search;
                 if (param.indexOf('level=2') > -1) {
                     window.history.pushState('', '', '?level=3');
